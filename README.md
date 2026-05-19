@@ -346,15 +346,24 @@ These files are generated locally and are not committed.
 
 ## Limitations
 
+## Limitations
+
 Current limitations:
 
-```text
-single-location forecasting only
-timezone-naive local event_time handling
-forecast data is used for inference while historical observations are used for training (training-serving skew)
-monitoring is only possible once the predicted timestamp becomes historical
-dashboard is local and report-based
-```
+- **Single-location forecasting only**  
+  The pipeline currently predicts temperature only for Basel.
+
+- **Timezone-naive local event_time handling**  
+  Event timestamps are handled as local Europe/Zurich timestamps instead of UTC-normalized timestamps.
+
+- **Training-serving skew**  
+  Training uses historical weather observations, while live inference uses forecast data. This means the model is not trained on exactly the same type of data that it receives during serving.
+
+- **Delayed monitoring**  
+  A prediction can only be evaluated once the predicted timestamp has become historical and the actual observation is available.
+
+- **Local report-based dashboard**  
+  The dashboard reads local report artifacts instead of a persistent monitoring database.
 
 Possible future improvements:
 
