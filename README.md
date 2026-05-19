@@ -367,15 +367,13 @@ Current limitations:
 
 Possible future improvements:
 
-```text
-multiple locations
-UTC-normalized event time
-historical forecast snapshots for training
-automated retraining
-persistent monitoring database
-expanded dashboard filters
-additional model families such as LightGBM, CatBoost or neural sequence models
-```
+- Multiple locations
+- UTC-normalized event time
+- Historical forecast snapshots for training
+- Automated retraining
+- Persistent monitoring database
+- Expanded dashboard filters
+- Additional model families such as LightGBM, CatBoost or neural sequence models
 
 ## References & Inspiration
 
