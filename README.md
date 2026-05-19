@@ -57,6 +57,8 @@ The project uses:
 Historical Weather API  -> training and monitoring
 Forecast API            -> live inference
 ```
+- This intentionally creates a training-serving skew: the model is trained on historical weather observations, while live inference uses forecast data.
+- Monitoring can only evaluate predictions later, once the predicted timestamp has become historical.
 
 ## Main Features
 
