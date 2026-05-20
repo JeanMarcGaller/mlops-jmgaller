@@ -372,23 +372,17 @@ These files are generated locally and are not committed.
 
 Current limitations:
 
-- **Single-location forecasting only**  
-  The pipeline currently predicts temperature only for Basel.
+- **Single-location forecasting only:** The pipeline currently predicts temperature only for Basel.
 
-- **Timezone-naive local event_time handling**  
-  Event timestamps are handled as local Europe/Zurich timestamps instead of UTC-normalized timestamps.
+- **Timezone-naive local event_time handling:** Event timestamps are handled as local Europe/Zurich timestamps instead of UTC-normalized timestamps.
 
-- **Training-serving skew**  
-  Training uses historical weather observations, while live inference uses forecast data. This means the model is not trained on exactly the same type of data that it receives during serving.
+- **Training-serving skew:** Training uses historical weather observations, while live inference uses forecast data. This means the model is not trained on exactly the same type of data that it receives during serving.
 
-- **Training data materialization**
-  The training Feature View is created, but the training pipelines currently read the dataframe directly from the Training Feature Group instead of materializing a separate Hopsworks Training Dataset. This was done because direct Feature Group reads with retry and local cache fallback were more stable during local development.
+- **Training data materialization:** The training Feature View is created, but the training pipelines currently read the dataframe directly from the Training Feature Group instead of materializing a separate Hopsworks Training Dataset. This was done because direct Feature Group reads with retry and local cache fallback were more stable during local development.
 
-- **Delayed monitoring**  
-  A prediction can only be evaluated once the predicted timestamp has become historical and the actual observation is available.
+- **Delayed monitoring:** A prediction can only be evaluated once the predicted timestamp has become historical and the actual observation is available.
 
-- **Local report-based dashboard**  
-  The dashboard reads local report artifacts instead of a persistent monitoring database.
+- **Local report-based dashboard:** The dashboard reads local report artifacts instead of a persistent monitoring database.
 
 Possible future improvements:
 
