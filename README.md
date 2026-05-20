@@ -368,8 +368,6 @@ These files are generated locally and are not committed.
 
 ## Limitations
 
-## Limitations
-
 Current limitations:
 
 - **Single-location forecasting only:** The pipeline currently predicts temperature only for Basel.
