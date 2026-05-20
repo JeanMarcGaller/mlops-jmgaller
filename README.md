@@ -91,6 +91,26 @@ month_cos
 
 The same feature engineering logic is used for training and inference.
 
+## Hopsworks Feature Store Design
+
+The project uses two Hopsworks Feature Groups:
+
+```text
+training feature group   -> historical features including the target
+inference feature group  -> live inference features without the target
+```
+
+Two corresponding Feature Views are created:
+
+```text
+training feature view   -> model training interface with `temperature_2m_next_6h` as label
+inference feature view  -> model serving interface used by the inference pipeline
+```
+
+The training Feature View is created explicitly to represent the model-specific training interface in the Feature-Training-Inference architecture. In the current implementation, the training dataframe is read directly from the Training Feature Group for local stability and reproducibility reasons. This avoids intermittent Hopsworks Query Service issues during local batch reads while still keeping the Feature View setup explicit.
+
+The final model bundle stores the Feature Group and Feature View metadata together with the exact feature column order. The inference pipeline then uses the registered model metadata and the inference Feature View to build the prediction input consistently.
+
 ## Technology Stack
 
 ```text
@@ -360,6 +380,9 @@ Current limitations:
 
 - **Training-serving skew**  
   Training uses historical weather observations, while live inference uses forecast data. This means the model is not trained on exactly the same type of data that it receives during serving.
+
+- **Training data materialization**
+  The training Feature View is created, but the training pipelines currently read the dataframe directly from the Training Feature Group instead of materializing a separate Hopsworks Training Dataset. This was done because direct Feature Group reads with retry and local cache fallback were more stable during local development.
 
 - **Delayed monitoring**  
   A prediction can only be evaluated once the predicted timestamp has become historical and the actual observation is available.
